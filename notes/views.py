@@ -33,3 +33,12 @@ def edit_note(request, id):
         form = NoteForm(instance=note)
 
     return render(request, "edit_note.html", {"form": form})
+
+def delete_note(request, id):
+    note = get_object_or_404(Note, id=id)
+
+    if request.method == "POST":
+        note.delete()
+        return redirect("note_list")
+
+    return render(request, "delete_note.html", {"note": note})
